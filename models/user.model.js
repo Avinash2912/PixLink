@@ -17,3 +17,9 @@ export const usersTable = pgTable("users", {
   updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 
 });
+
+
+
+
+
+

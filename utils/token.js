@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { authTokenSchema } from "../validation/token.validation";
+import { authTokenSchema } from "../validation/token.validation.js";
 import env from "dotenv";
 
 env.config();
@@ -10,10 +10,20 @@ export async function generateAuthToken(payload) {
     throw new Error("Invalid token payload");
   }
 
-  const payload = validationResult.data;
+  const validPayload = validationResult.data;
 
-  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+  const token = jwt.sign(validPayload, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
   return token;
+}
+
+export function ValidateUserToken (token) {
+  const payload = jwt.verify(token, process.env.JWT_SECRET);
+
+  if (!payload) {
+    throw new Error("Invalid token");
+  }
+
+  return payload;
 }
