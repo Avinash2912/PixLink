@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "PixLink API",
+    "_postman_id": "d1c8b7d6-ff12-4a6c-a5b0-82ffcc7a1234",
+    "description": "Postman collection for PixLink API - a URL shortening service with user authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Signup",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/user/signup",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "user", "signup"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "User Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/user/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "user", "login"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Shorten URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/url/shorten",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "url", "shorten"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://www.example.com\",\n  \"code\": \"custom123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Redirect Short URL",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/url/custom123",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "url", "custom123"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" }
+  ]
+}
