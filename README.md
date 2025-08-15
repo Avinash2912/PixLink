@@ -3,7 +3,7 @@
 Create a `.env` file in your project root with the following content:
 ```
 PORT=8000
-DATABASE_URL=postgres://Avinash:Avinash123@localhost:5432/mydatabase
+DATABASE_URL=< your postgres database url >
 JWT_SECRET
 ```
 
