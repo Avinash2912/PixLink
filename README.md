@@ -40,8 +40,8 @@ POST http://localhost:3000/user/signup
 Body (JSON):
 ```
 {
-  "firstName": "Avinash",
-  "lastName": "Jha",
+  "firstname": "Avinash",
+  "lastname": "Jha",
   "email": "your@email.com",
   "password": "yourpassword"
 }

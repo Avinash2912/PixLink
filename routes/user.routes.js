@@ -31,13 +31,13 @@ router.post("/signup", async (req, res) => {
     return res.status(400).send(`User with this email ${email} already exists`);
   }
 
-  const { salt, password: hashedPassword } = await hashPasswordWithSalt(password);
+  const { userSalt, password: hashedPassword } = await hashPasswordWithSalt(password);
 
   const user = await createUser({
     firstname,
     lastname,
     email,
-    salt,
+    salt: userSalt,
     password: hashedPassword,
   });
 

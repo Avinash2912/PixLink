@@ -3,6 +3,9 @@ import env from 'dotenv';
 import userRouter from "./routes/user.routes.js";
 import { authenticationMiddleware } from './middlewares/auth.middleware.js'
 import urlRouter from './routes/url.routes.js'
+
+
+
 env.config();
 const port =  3000;
 const app = express();
