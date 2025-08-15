@@ -49,22 +49,20 @@ Body (JSON):
 
 ---
 You can always check this file for a quick reminder!
+
 # PixLink
 
-PixLink is a Node.js Express application with PostgreSQL integration using Drizzle ORM. It provides user authentication and signup functionality.
+PixLink is a URL shortener and management application built with Node.js, Express, and PostgreSQL (via Drizzle ORM). It allows users to sign up, log in, shorten URLs, view their URLs, and delete them securely.
 
 ## Features
-- User signup with hashed password and salt
-- PostgreSQL database integration via Docker
+- User authentication (signup & login)
+- Shorten long URLs with custom codes
+- Retrieve all URLs for a user
+- Delete URLs
+- Secure endpoints with JWT authentication
 - Input validation using Zod
 
-## Getting Started
-
-### Prerequisites
-- Node.js
-- Docker & Docker Compose
-
-### Installation
+## How to Use
 1. Clone the repository:
    ```sh
    git clone <your-repo-url>
@@ -82,32 +80,92 @@ PixLink is a Node.js Express application with PostgreSQL integration using Drizz
    ```env
    PORT=8000
    DATABASE_URL=postgres://Avinash:Avinash123@localhost:5432/mydatabase
+   JWT_SECRET=<your-secret>
    ```
-5. Start the server:
+5. Push database schema changes:
+   ```sh
+   npm run db:push
+   ```
+6. Start the server:
    ```sh
    npm start
    ```
+7. The server will run at http://localhost:3000
+
+## Dependencies
+- express
+- drizzle-orm
+- nanoid
+- zod
+- dotenv
+- pg (PostgreSQL client)
 
 ## API Endpoints
 
-### POST /user/signup
-Creates a new user.
-- Request body (JSON):
-  ```json
-  {
-    "firstname": "Avinash",
-    "lastname": "Jha",
-    "email": "avinashjha6@gmail.com",
-    "password": "yourpassword"
-  }
-  ```
-- Response:
-  ```json
-  {
-    "data": { "id": "<uuid>" },
-    "message": "User created successfully"
-  }
-  ```
+### User Authentication
+- `POST /user/signup` — Register a new user
+- `POST /user/login` — Log in and receive a JWT token
+
+### URL Management
+- `POST /shortenURL` — Shorten a URL (requires authentication)
+- `GET /user/urls` — Get all URLs for the authenticated user
+- `DELETE /user/urls/:id` — Delete a URL by ID (requires authentication)
+- `GET /:shortCode` — Redirect to the original URL
+
+## Example Usage
+
+### Signup
+```http
+POST http://localhost:3000/user/signup
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "john.doe@example.com",
+  "password": "yourpassword"
+}
+```
+
+### Login
+```http
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "yourpassword"
+}
+```
+
+### Shorten URL
+```http
+POST http://localhost:3000/shortenURL
+Content-Type: application/json
+Authorization: Bearer <your_token>
+
+{
+  "url": "https://www.whatsapp.com/",
+  "code": "wapp"
+}
+```
+
+### Get User URLs
+```http
+GET http://localhost:3000/user/urls
+Authorization: Bearer <your_token>
+```
+
+### Delete URL
+```http
+DELETE http://localhost:3000/user/urls/<id>
+Authorization: Bearer <your_token>
+```
+
+### Redirect
+```http
+GET http://localhost:3000/wapp
+```
 
 ## License
 MIT
