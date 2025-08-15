@@ -1,55 +1,5 @@
 ## Example .env File
 
-Create a `.env` file in your project root with the following content:
-```
-PORT=8000
-DATABASE_URL=< your postgres database url >
-JWT_SECRET
-```
-
-
-# How to Run PixLink
-
-1. Open a terminal in the project folder.
-2. Start PostgreSQL with Docker Compose:
-   ```sh
-   docker-compose up -d
-   ```
-3. Install dependencies:
-   ```sh
-   npm install
-   ```
-4. Push database schema changes:
-   ```sh
-   npm run db:push
-   ```
-   Use this if you change your models/schema.
-5 Open database studio:
-   ```sh
-   npm run db:studio
-   ```
-   Use this to visually inspect/manage your database.
-6. Start the server:
-   ```sh
-   npm start
-   ```
-7. The server will run at http://localhost:3000
-
-## Signup API Example
-POST http://localhost:3000/user/signup
-Body (JSON):
-```
-{
-  "firstname": "Avinash",
-  "lastname": "Jha",
-  "email": "your@email.com",
-  "password": "yourpassword"
-}
-```
-
----
-You can always check this file for a quick reminder!
-
 # PixLink
 
 PixLink is a URL shortener and management application built with Node.js, Express, and PostgreSQL (via Drizzle ORM). It allows users to sign up, log in, shorten URLs, view their URLs, and delete them securely.
@@ -166,6 +116,60 @@ Authorization: Bearer <your_token>
 ```http
 GET http://localhost:3000/wapp
 ```
+
+
+
+Create a `.env` file in your project root with the following content:
+```
+PORT=8000
+DATABASE_URL=< your postgres database url >
+JWT_SECRET =< Your JWT SECRET HERE >
+```
+
+
+# How to Run PixLink
+
+1. Open a terminal in the project folder.
+2. Start PostgreSQL with Docker Compose:
+   ```sh
+   docker-compose up -d
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+4. Push database schema changes:
+   ```sh
+   npm run db:push
+   ```
+   Use this if you change your models/schema.
+5 Open database studio:
+   ```sh
+   npm run db:studio
+   ```
+   Use this to visually inspect/manage your database.
+6. Start the server:
+   ```sh
+   npm start
+   ```
+7. The server will run at http://localhost:3000
+
+## Signup API Example
+POST http://localhost:3000/user/signup
+Body (JSON):
+```
+{
+  "firstname": "Avinash",
+  "lastname": "Jha",
+  "email": "your@email.com",
+  "password": "yourpassword"
+}
+```
+
+---
+You can always check this file for a quick reminder!
+
+
 
 ## License
 MIT
