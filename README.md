@@ -1,4 +1,3 @@
-## Example .env File
 
 # PixLink
 
@@ -117,7 +116,7 @@ Authorization: Bearer <your_token>
 GET http://localhost:3000/wapp
 ```
 
-
+## Example .env File
 
 Create a `.env` file in your project root with the following content:
 ```
