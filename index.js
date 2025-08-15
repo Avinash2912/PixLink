@@ -21,9 +21,9 @@ app.get('/', (req, res) => {
 
 
 
-app.use(urlRouter);
-app.use('/user', userRouter);
 
+app.use('/user', userRouter);
+app.use(urlRouter);
 
 
 app.listen(port,  () => {
