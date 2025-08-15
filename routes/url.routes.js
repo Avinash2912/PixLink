@@ -1,19 +1,13 @@
 import express from "express";
 import { shortenPostRequestBodySchema } from "../validation/request.validation.js";
-import { db } from "../db/index.js";
-import { urlsTable } from "../models/index.js";
+import { createShortUrl } from "../services/url.service.js";
 import { nanoid } from "nanoid";
+import {isAuthenticated} from '../middlewares/auth.middleware.js'; // Assuming auth middleware is used for user authentication
 
 const router = express.Router();
 
-router.post("/shorten", async (req, res) => {
+router.post("/shorten",isAuthenticated, async (req, res) => {
   const userId = req.user?.id;
-
-  if (!userId) {
-    return res
-      .status(401)
-      .json({ error: " You must be logged in to access this resource" });
-  }
 
   const validationResult = await shortenPostRequestBodySchema.safeParseAsync(
     req.body
@@ -33,15 +27,11 @@ router.post("/shorten", async (req, res) => {
   const short_url = code ?? nanoid(6);
 
   try {
-    const [result] = await db
-      .insert(urlsTable)
-      .values({
-        short_url,
-        original_url: url,
-        user_id: userId
-      })
-      .returning({ id: urlsTable.id, short_url: urlsTable.short_url, original_url: urlsTable.original_url });
-
+    const result = await createShortUrl({
+      short_url,
+      original_url: url,
+      user_id: userId
+    });
     return res.status(201).json({
       id: result.id,
       targeturl: result.original_url,
